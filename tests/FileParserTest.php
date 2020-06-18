@@ -10,8 +10,8 @@ class FileParserTest extends TestCase
 
     public function testCreatingFileParser() 
     {
-        $fileParser = new FileParser($testFilePath);
-        $this->assertEquals($testFilePath, $fileParser->filepath);
+        $fileParser = new FileParser($this->testFilePath);
+        $this->assertEquals($this->testFilePath, $fileParser->filepath);
     }
 
     public function testReadFile() 
