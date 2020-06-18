@@ -22,7 +22,7 @@ class Robot
 
     public function place($x, $y, $faceDirection)
     {
-        if ($x <= $this->maxX && $y < $this->maxY) {
+        if ($x > 0 && $y > 0 && $x <= $this->maxX && $y <= $this->maxY && in_array($faceDirection, $this->directionArray)) {
             $this->x = $x;
             $this->y = $y;
             $this->faceDirection = $faceDirection;
