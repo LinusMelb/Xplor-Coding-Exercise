@@ -1,5 +1,6 @@
 # Xplor-Coding-Exercise
 Implemented by: Linus Peng (penxumelb@gmail.com)
+Visualisation also created using VueJS (Please checkout index.html)
 
 ## How to run this project locally
 These instructions will help you run this project on your local machine for testing purposes.
