@@ -36,6 +36,10 @@ class RobotTest extends TestCase
         $this->assertEquals("1,2,NORTH", $this->robot->report());
         $this->robot->place(5, 3, 'SOUTH');
         $this->assertEquals("5,3,SOUTH", $this->robot->report());
+
+        // invalid inputs
+        $this->robot->place(6, 6, 'SOUTH');
+        $this->assertEquals("5,3,SOUTH", $this->robot->report());
     }
 
     public function testRobotCanMove()
@@ -45,7 +49,7 @@ class RobotTest extends TestCase
         $this->assertEquals(5, $this->robot->x);
         $this->assertEquals(1, $this->robot->y);
 
-        // Check if reaches to the boundry
+        // Test when it reaches to the boundry
         $this->robot->move();
         $this->assertEquals(5, $this->robot->x);
         $this->assertEquals(1, $this->robot->y);
@@ -79,25 +83,26 @@ class RobotTest extends TestCase
 
     public function testRobotExecuteCommand() 
     {
+        // invalid command
         $this->robot->executeCommand("PLACE 0,0,NORTH");
-        $this->assertEquals("0,0,NORTH", $this->robot->report());
-
-        // check if it ignores invalid command
+        $this->assertEquals("", $this->robot->report());
         $this->robot->executeCommand("PLACE 5,4,SOUTHWEST");
         $this->assertNotEquals("5,4,SOUTHWEST", $this->robot->report());
 
+        // valid command
+        $this->robot->executeCommand("PLACE 1,1,NORTH");
         $this->robot->executeCommand("MOVE");
         $this->robot->executeCommand("MOVE");
         $this->robot->executeCommand("MOVE");
-        $this->assertEquals("0,3,NORTH", $this->robot->report());
+        $this->assertEquals("1,4,NORTH", $this->robot->report());
 
         $this->robot->executeCommand("LEFT");
-        $this->assertEquals("0,3,WEST", $this->robot->report());
+        $this->assertEquals("1,4,WEST", $this->robot->report());
         $this->robot->executeCommand("RIGHT");
-        $this->assertEquals("0,3,NORTH", $this->robot->report());
+        $this->assertEquals("1,4,NORTH", $this->robot->report());
 
         $this->robot->executeCommand("REPORT");
-        $this->expectOutputString("0,3,NORTH\n");
+        $this->expectOutputString("1,4,NORTH\n");
     }
 
 }
