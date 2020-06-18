@@ -10,7 +10,7 @@
             width: 100px; height: 100px; margin: 5px; text-align: "center"
             }
             .mt-10 {
-                margin-top: 100px;
+                margin-top: 50px;
             }
             .pb-3 {
                 padding-bottom: 30px!important;
@@ -26,6 +26,8 @@
             </p>
 
             <div class="container mt-10">
+                <h3 class="pb-3">X: {{x}}, Y: {{y}}, F: {{f}}</h3>
+
                 <div class="tile is-ancestor" v-for="i in 5">
                     <div class="is-parent" v-for="j in 5">
                       <article class="is-child box grid">
@@ -44,7 +46,6 @@
                                 <i class="fas fa-arrow-left"></i>
                             </span>
                         </div>
-
 
                         ({{j}},{{5-i+1}})
 
@@ -93,18 +94,21 @@
                 addCommand() {
                     const command = this.command.toUpperCase();
 
-                    if (command == 'MOVE') {
+                    if (command == 'MOVE' && this.x != 0 && this.y != 0) {
                         this.move();
                     }
-                    else if (command == 'LEFT') {
+                    else if (command == 'LEFT' && this.x != 0 && this.y != 0) {
                         this.left();
                     }
-                    else if (command == 'RIGHT') {
+                    else if (command == 'RIGHT' && this.x != 0 && this.y != 0) {
                         this.right();
                     }
                     else if (command.match(/^PLACE\s(\d),(\d),(EAST|WEST|SOUTH|NORTH)$/i)) {
                         let matches = command.match(/^PLACE\s(\d),(\d),(EAST|WEST|SOUTH|NORTH)$/i);
-                        this.place(matches[1], matches[2], matches[3])
+
+                        if (Number(matches[1]) > 0 && Number(matches[2]) > 0 && Number(matches[1]) < 6 && Number(matches[2]) < 6) {
+                            this.place(matches[1], matches[2], matches[3])
+                        }
                     }
 
                     this.commandList.push(command);
@@ -144,7 +148,7 @@
                         this.x < 5 ? this.x++ : this.x;
                     }
                     else if (this.f == 2) {
-                        this.y < 1 ? this.y : this.y--;
+                        this.y < 2 ? this.y : this.y--;
                     } else if (this.f == 3) {
                         this.x > 1 ? this.x--: this.x;
                     }
